@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->decimal('total_amount', 8, 2);
-            $table->date('sale_date');
+            $table->decimal('amount_received', 8, 2);
+            $table->decimal('change', 8, 2);
             $table->enum('payment_method', ['efectivo','yape']);
+            $table->date('sale_date');
             $table->timestamps();
         });
     }
