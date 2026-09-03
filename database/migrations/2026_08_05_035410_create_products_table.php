@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('price', 8, 2); 
             $table->enum('status', ['activo', 'inactivo'])->default('activo');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

@@ -16,7 +16,8 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'status'
+        'status',
+        'image'
     ];
 
     public function saleItems(): HasMany
