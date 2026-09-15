@@ -3,25 +3,32 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SearchProductRequest;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Services\ProductService;
+
 class ProductController extends Controller
 {
     public function __construct(
-     private readonly ProductService $saleService
+     private readonly ProductService $productService
     ) {}
-    public function index()
+
+    public function index(SearchProductRequest $request)
     {
-        $products = Product::all();
+        $name = $request->input('name');
+        $category = $request->input('category');
+
+        $products = $this->productService->getProducts($name, $category);
+
         return ProductResource::collection($products);
     }
 
     public function store(StoreProductRequest $request)
     {
-        $product = $this->saleService->createProduct(
+        $product = $this->productService->createProduct(
             $request->validated()
         );
 
@@ -32,7 +39,7 @@ class ProductController extends Controller
     
     public function update(Product $product, UpdateProductRequest $request)
     {
-        $updatedProduct = $this->saleService->updateProduct(
+        $updatedProduct = $this->productService->updateProduct(
             $product,
             $request->validated()
         );

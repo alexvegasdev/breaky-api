@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->decimal('price', 8, 2); 
+            $table->integer('stock')->default(0);
             $table->enum('status', ['activo', 'inactivo'])->default('activo');
             $table->string('image')->nullable();
+            $table->foreignId('category_id')->constrained('categories');
             $table->timestamps();
         });
     }
