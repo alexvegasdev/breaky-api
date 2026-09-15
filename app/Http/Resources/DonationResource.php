@@ -17,9 +17,10 @@ class DonationResource extends JsonResource
         return [
             'id' => $this->id,
             'donor_name' => $this->donor_name,
+            'donation_date' => $this->donation_date,
             'amount' => $this->amount,
-            'notes' => $this->notes,
-            'donation_date' => $this->donation_date
+            'payment_method' => $this->payment_method,
+            'notes' => $this->notes
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SearchDonationRequest;
 use App\Http\Requests\StoreDonationRequest;
 use App\Http\Requests\UpdateDonationRequest;
 use App\Http\Resources\DonationResource;
@@ -15,9 +16,13 @@ class DonationController extends Controller
         private readonly DonationService $donationService
     ) {}
 
-    public function index()
+    public function index(SearchDonationRequest $request)
     {
-        $donations = Donation::all();
+        $paymentMethod = $request->input('payment_method');
+        $donationDate = $request->input('donation_date');
+
+        $donations = $this->donationService->getDonations($paymentMethod, $donationDate);
+
         return DonationResource::collection($donations);
     }
 
